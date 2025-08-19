@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Warwick - LoL Evolution - Frakkass</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #2d1810 100%);
+            color: #e0e6ed;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #c8aa6e, #f0e6d2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .stats {
+            background: rgba(200, 170, 110, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(200, 170, 110, 0.3);
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 5px;
+            gap: 5px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: transparent;
+            color: #c8aa6e;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            background: rgba(200, 170, 110, 0.2);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #c8aa6e, #f0e6d2);
+            color: #0f1419;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .build-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(200, 170, 110, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .build-section h2 {
+            color: #c8aa6e;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid rgba(200, 170, 110, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .item-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .item-card:hover {
+            border-color: #c8aa6e;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .item-card.core {
+            border-color: #c8aa6e;
+            background: rgba(200, 170, 110, 0.1);
+        }
+
+        .runes-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .rune-tree {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(200, 170, 110, 0.3);
+        }
+
+        .rune-tree h3 {
+            color: #c8aa6e;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .skill-order {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .skill-level {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid #c8aa6e;
+        }
+
+        .skill-q { background: linear-gradient(135deg, #1e90ff, #4169e1); }
+        .skill-w { background: linear-gradient(135deg, #32cd32, #228b22); }
+        .skill-e { background: linear-gradient(135deg, #ffd700, #ffa500); }
+        .skill-r { background: linear-gradient(135deg, #ff4500, #dc143c); }
+
+        .level-indicator {
+            font-size: 12px;
+            color: #c8aa6e;
+        }
+
+        .progression {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .phase {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid #c8aa6e;
+        }
+
+        .phase h4 {
+            color: #c8aa6e;
+            margin-bottom: 10px;
+        }
+
+        .tips {
+            background: rgba(200, 170, 110, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(200, 170, 110, 0.3);
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .tip-icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .counter-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .matchup-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .good-matchup {
+            border: 2px solid #32cd32;
+        }
+
+        .bad-matchup {
+            border: 2px solid #ff4444;
+        }
+
+        .item-order {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .item-step {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(200, 170, 110, 0.3);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .runes-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .counter-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .skill-order {
+                gap: 5px;
+            }
+            
+            .skill-level {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐺 Guide Warwick Jungle - Frakkass</h1>
+            <div class="stats">
+                <strong>Tier S - 52.66% WinRate</strong> | Patch 25.16 | Basé sur 121,869 parties
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('build')">Build & Objets</button>
+            <button class="tab" onclick="showTab('runes')">Runes</button>
+            <button class="tab" onclick="showTab('skills')">Compétences</button>
+            <button class="tab" onclick="showTab('progression')">Progression</button>
+            <button class="tab" onclick="showTab('matchups')">Matchups</button>
+        </div>
+
+        <!-- Build Tab -->
+        <div id="build" class="tab-content active">
+            <div class="build-section">
+                <h2>🛡️ Build Core Recommandé</h2>
+                <div class="items-grid">
+                    <div class="item-card core">
+                        <h4>Cotte maille à pointes</h4>
+                        <p>Chaussures principales contre l'AD</p>
+                    </div>
+                    <div class="item-card core">
+                        <h4>Brise-Enjambées</h4>
+                        <p>Objet mythique pour les ganks</p>
+                    </div>
+                    <div class="item-card core">
+                        <h4>Lame du Roi déchu</h4>
+                        <p>Dégâts et sustain</p>
+                    </div>
+                    <div class="item-card core">
+                        <h4>Cotte épineuse</h4>
+                        <p>Armure et anti-heal</p>
+                    </div>
+                    <div class="item-card core">
+                        <h4>Visage spirituel</h4>
+                        <p>RM et boost de heal</p>
+                    </div>
+                    <div class="item-card core">
+                        <h4>Force stéréo</h4>
+                        <p>Bouclier et dégâts</p>
+                    </div>
+                </div>
+
+                <h3>📦 Objets de départ</h3>
+                <div class="item-order">
+                    <div class="item-step">Rejeton du Marchevent</div>
+                    <div class="item-step">Potion de santé</div>
+                    <div class="item-step">Totam-oracle</div>
+                </div>
+
+                <h3>⚡ Objets alternatifs</h3>
+                <div class="items-grid">
+                    <div class="item-card">
+                        <h4>Chaussures de vélocité</h4>
+                        <p>Si vous avez besoin de mobilité</p>
+                    </div>
+                    <div class="item-card">
+                        <h4>Tabi ninja</h4>
+                        <p>Contre les compos AD lourdes</p>
+                    </div>
+                    <div class="item-card">
+                        <h4>Chaussures de Mercure</h4>
+                        <p>Contre beaucoup de CC</p>
+                    </div>
+                </div>
+
+                <h3>🔄 Ordre d'achat optimal</h3>
+                <div class="item-order">
+                    <div class="item-step">1. Rejeton du Marchevent</div>
+                    <div class="item-step">2. Bottes</div>
+                    <div class="item-step">3. Hydre</div>
+                    <div class="item-step">4. Cotte maille à pointes</div>
+                    <div class="item-step">5. Brise-Enjambées</div>
+                    <div class="item-step">6. Lame du Roi déchu</div>
+                    <div class="item-step">7. Cotte épineuse</div>
+                    <div class="item-step">8. Visage spirituel</div>
+                    <div class="item-step">9. Force stéréo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Runes Tab -->
+        <div id="runes" class="tab-content">
+            <div class="build-section">
+                <h2>🔮 Configuration des Runes</h2>
+                <div class="runes-section">
+                    <div class="rune-tree">
+                        <h3>🎯 Précision (Primaire)</h3>
+                        <div class="tip-item">
+                            <span class="tip-icon">⚔️</span>
+                            <div>
+                                <strong>Tempo létal</strong><br>
+                                <small>Pierre angulaire parfaite pour les duels prolongés</small>
+                            </div>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🩸</span>
+                            <div>
+                                <strong>Triomphe</strong><br>
+                                <small>Heal et gold bonus sur takedown</small>
+                            </div>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">📈</span>
+                            <div>
+                                <strong>Légende : Vitesse d'attaque</strong><br>
+                                <small>Synergie avec Tempo létal</small>
+                            </div>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">⚰️</span>
+                            <div>
+                                <strong>Dernier souffle</strong><br>
+                                <small>Plus de dégâts sur ennemis low HP</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rune-tree">
+                        <h3>✨ Sorcellerie (Secondaire)</h3>
+                        <div class="tip-item">
+                            <span class="tip-icon">💨</span>
+                            <div>
+                                <strong>Célérité</strong><br>
+                                <small>Mobilité supplémentaire</small>
+                            </div>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🌊</span>
+                            <div>
+                                <strong>Tempête menaçante</strong><br>
+                                <small>Dégâts bonus en fin de partie</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tips">
+                    <h3>💡 Pourquoi cette configuration ?</h3>
+                    <div class="tip-item">
+                        <span class="tip-icon">🎯</span>
+                        <strong>Tempo létal</strong> : Warwick excelle dans les combats prolongés grâce à sa passivité et son Q
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">🔄</span>
+                        <strong>Sorcellerie</strong> : Compense le manque de mobilité naturel de Warwick
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Tab -->
+        <div id="skills" class="tab-content">
+            <div class="build-section">
+                <h2>🎮 Ordre des Compétences</h2>
+                
+                <h3>📊 Priorité générale : F1 > F2 > F3 > F4</h3>
+                <div class="skill-order">
+                    <div class="skill-level skill-q">F1</div>
+                    <div class="skill-level skill-w">F2</div>
+                    <div class="skill-level skill-e">F3</div>
+                    <div class="skill-level skill-q">F1</div>
+                    <div class="skill-level skill-q">F1</div>
+                    <div class="skill-level skill-r">F4</div>
+                    <div class="skill-level skill-q">F1</div>
+                    <div class="skill-level skill-w">F2</div>
+                    <div class="skill-level skill-q">F1</div>
+                    <div class="skill-level skill-w">F2</div>
+                    <div class="skill-level skill-r">F4</div>
+                    <div class="skill-level skill-w">F2</div>
+                    <div class="skill-level skill-w">F2</div>
+                    <div class="skill-level skill-e">F3</div>
+                    <div class="skill-level skill-e">F3</div>
+                    <div class="skill-level skill-r">F4</div>
+                    <div class="skill-level skill-e">F3</div>
+                    <div class="skill-level skill-e">F3</div>
+                </div>
+
+                <div class="progression">
+                    <div class="phase">
+                        <h4>🥇 Priorité absolue : F1 - Mâchoires de la bête</h4>
+                        <p>Votre principale source de dégâts et de sustain. Réduction de CD et augmentation des dégâts cruciaux.</p>
+                    </div>
+                    
+                    <div class="phase">
+                        <h4>🥈 Deuxième priorité : F2 - Chasse sanguinaire</h4>
+                        <p>Améliore votre vitesse de clear jungle et vos ganks. Plus de vitesse d'attaque et de dégâts.</p>
+                    </div>
+                    
+                    <div class="phase">
+                        <h4>🥉 Troisième priorité : F3 - Hurlement primordial</h4>
+                        <p>Utility spell. Un point tôt pour les ganks, puis maxé en dernier.</p>
+                    </div>
+                    
+                    <div class="phase">
+                        <h4>⭐ Ultimate : F4 - Contrainte infinie</h4>
+                        <p>Prenez aux niveaux 6, 11 et 16. Votre principal outil d'engage.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+                <div class="tips">
+                    <h3>🎯 Conseils d'utilisation des compétences</h3>
+                    <div class="tip-item">
+                        <span class="tip-icon">🦷</span>
+                        <strong>Q (Mâchoires de la bête)</strong> : Hold pour suivre les dashes/flash ennemis
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">👃</span>
+                        <strong>W (Chasse sanguinaire)</strong> : Activez quand vous voyez un ennemi low HP pour la vitesse
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">😱</span>
+                        <strong>E (Hurlement primordial)</strong> : Utilisez défensivement ou pour setup vos coéquipiers
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">🎯</span>
+                        <strong>R (Contrainte infinie)</strong> : Long range, parfait pour les ganks surprise
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progression Tab -->
+        <div id="progression" class="tab-content">
+            <div class="build-section">
+                <h2>📈 Guide de Progression</h2>
+                
+                <div class="phase">
+                    <h4>🌱 Early Game (Niveaux 1-6)</h4>
+                    <div class="tip-item">
+                        <span class="tip-icon">🎯</span>
+                        <strong>Focus</strong> : Clear jungle efficace et recherche de ganks sur lanes low HP
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">🛡️</span>
+                        <strong>Objets clés</strong> : Rejeton du Marchevent → Bottes → Hydre
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">⚔️</span>
+                        <strong>Stratégie</strong> : Farmez jusqu'au niveau 6, puis cherchez les ganks avec R
+                    </div>
+                </div>
+
+                <div class="phase">
+                    <h4>⚡ Mid Game (Niveaux 7-12)</h4>
+                    <div class="tip-item">
+                        <span class="tip-icon">👥</span>
+                        <strong>Focus</strong> : Ganks et team fights autour des objectifs
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">🛡️</span>
+                        <strong>Objets clés</strong> : Brise-Enjambées → Lame du Roi déchu
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">🐲</span>
+                        <strong>Objectifs</strong> : Contrôlez dragons et Herald avec votre équipe
+                    </div>
+                </div>
+
+                <div class="phase">
+                    <h4>🔥 Late Game (Niveaux 13-18)</h4>
+                    <div class="tip-item">
+                        <span class="tip-icon">🛡️</span>
+                        <strong>Focus</strong> : Tank/Bruiser dans les team fights
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">🏰</span>
+                        <strong>Objets clés</strong> : Cotte épineuse → Visage spirituel → Force stéréo
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">🎯</span>
+                        <strong>Rôle</strong> : Engagez avec R, protégez vos carries
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Matchups Tab -->
+        <div id="matchups" class="tab-content">
+            <div class="build-section">
+                <h2>⚔️ Matchups Jungle</h2>
+                
+                <div class="counter-section">
+                    <div class="matchup-card good-matchup">
+                        <h3>✅ Matchups Favorables</h3>
+                        <div class="tip-item">
+                            <span class="tip-icon">🦂</span>
+                            <strong>Skarner</strong> : Votre sustain > ses dégâts
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🗡️</span>
+                            <strong>Qiyana</strong> : Résistez à son burst
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🐱</span>
+                            <strong>Rengar</strong> : Win les duels 1v1
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🎯</span>
+                            <strong>Conseil</strong> : Jouez agressivement, invadez leur jungle
+                        </div>
+                    </div>
+
+                    <div class="matchup-card bad-matchup">
+                        <h3>❌ Matchups Difficiles</h3>
+                        <div class="tip-item">
+                            <span class="tip-icon">🧙‍♀️</span>
+                            <strong>Morgana</strong> : Son shield bloque votre R
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🛡️</span>
+                            <strong>Rammus</strong> : Trop tank, vous hurt vous-même
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">⚡</span>
+                            <strong>Volibear</strong> : Meilleur early game
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🛡️</span>
+                            <strong>Conseil</strong> : Farmez safe, attendez l'aide de votre équipe
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tips">
+                    <h3>💡 Conseils Généraux de Matchup</h3>
+                    <div class="tip-item">
+                        <span class="tip-icon">👀</span>
+                        <strong>Vision</strong> : Wardez leur jungle pour éviter les contre-ganks
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">⏰</span>
+                        <strong>Timing</strong> : Vos power spikes : niveau 6, Brise-Enjambées, Lame du Roi déchu
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">🎯</span>
+                        <strong>Target Priority</strong> : Focuses les ADC et mid squishy en team fight
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">🔄</span>
+                        <strong>Sustain</strong> : Utilisez votre passivité pour rester en vie plus longtemps
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips">
+            <h3>🏆 Conseils Pro pour Dominer avec Warwick</h3>
+            <div class="tip-item">
+                <span class="tip-icon">🩸</span>
+                <strong>Passive Power</strong> : Vos dégâts augmentent contre les ennemis low HP - engagez les combats déjà entamés
+            </div>
+            <div class="tip-item">
+                <span class="tip-icon">👑</span>
+                <strong>Ganks efficaces</strong> : Utilisez W pour track les ennemis low HP, puis R pour l'engage
+            </div>
+            <div class="tip-item">
+                <span class="tip-icon">🔥</span>
+                <strong>Team Fight</strong> : Rentrez avec R sur la carry adverse, puis focus sustain avec Q
+            </div>
+            <div class="tip-item">
+                <span class="tip-icon">⚡</span>
+                <strong>Clear optimisé</strong> : Kite les camps pour minimiser les dégâts subis
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Add some interactive hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const itemCards = document.querySelectorAll('.item-card');
+            
+            itemCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
